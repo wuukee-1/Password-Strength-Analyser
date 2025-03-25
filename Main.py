@@ -2,6 +2,7 @@
 import string
 import re
 
+#Checking and valuing length of the password
 def check_password_length(password):
     length = len(password)
     score = 0
@@ -10,7 +11,7 @@ def check_password_length(password):
     if length > 8:
         score += 1
     else:
-        suggestions.append("Increase the password length to at least 8 characters.")
+        suggestions.append("Increase the password length to at least 8 characters.") 
     if length > 12:
         score += 1
     if length > 16:
@@ -20,10 +21,10 @@ def check_password_length(password):
     return score, suggestions
 
 def check_character_types(password):
-    has_uppercase = any(c.isupper() for c in password)
-    has_lowercase = any(c.islower() for c in password)
-    has_special = any(c in string.punctuation for c in password)
-    has_digit = any(c.isdigit() for c in password)
+    has_uppercase = any(c.isupper() for c in password) #Checking for any Upper Case characters
+    has_lowercase = any(c.islower() for c in password) #Checing for any Lower Case characters
+    has_special = any(c in string.punctuation for c in password) #Checing for any Special characters
+    has_digit = any(c.isdigit() for c in password) #Checing for any Digits
     character_types = [has_uppercase, has_lowercase, has_special, has_digit]
     score = 0
     suggestions = []
@@ -45,6 +46,7 @@ def check_character_types(password):
         suggestions.append("Try including digits to increase password complexity")
     return score, suggestions
 
+#Assessing strength based on score from previous values
 def assess_password_strength(score):
     if score < 2:
         print(f"This password is very weak. Total score: {score}. It is highly vulnerable to cracking.")
@@ -57,9 +59,9 @@ def assess_password_strength(score):
     else:
         print(f"This password is strong. Total score: {score} It is likely to be resistant to most cracking attempts.")
 
-
+#Where the user provides their password they wish to test
 password = input("Please enter in the password you wish to analyse here: ")
-
+#Checking againts 1 million most common passwords
 with open('Common_Passwords.txt', 'r') as f:
     common = f.read().splitlines()
 
